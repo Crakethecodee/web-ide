@@ -2,9 +2,9 @@
 
 A browser-based Web IDE that lets you write, run, and manage full-stack Python projects (Django/Flask/FastAPI) directly in the browser.
 
-**## Demo Video
+## Demo Video
 
-👉 [Watch the Demo Video](https://drive.google.com/drive/folders/1XN9ofTP2_QGKpes8py-Y72-Amj9geeY_?usp=sharing)**
+👉 [Watch the Demo Video](https://drive.google.com/drive/folders/1XN9ofTP2_QGKpes8py-Y72-Amj9geeY_?usp=sharing)
 
  Features
 
