@@ -32,7 +32,8 @@ Browser (React)
 ARCHITECTURE DIAGRAM
 
 
-<img width="887" height="676" alt="image" src="https://github.com/user-attachments/assets/7a3d25e4-d816-46f8-a36c-a3a98f766f5a" />
+<img width="922" height="824" alt="image" src="https://github.com/user-attachments/assets/0596250e-a395-4c77-9967-1c1355354975" />
+
 
 
 Setup & Run
