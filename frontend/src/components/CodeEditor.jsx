@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Editor from "@monaco-editor/react";
 import axios from "axios";
 
@@ -13,6 +13,7 @@ const extLang = {
 export default function CodeEditor({ file }) {
   const [content, setContent] = useState("// Select a file to edit");
   const [saved, setSaved] = useState(true);
+  const editorRef = useRef(null);
 
   useEffect(() => {
     if (!file) return;
@@ -26,6 +27,12 @@ export default function CodeEditor({ file }) {
       .then(() => setSaved(true));
   };
 
+  const handleFormat = () => {
+    if (editorRef.current) {
+      editorRef.current.getAction("editor.action.formatDocument").run();
+    }
+  };
+
   const ext = file?.name.split(".").pop() || "txt";
   const language = extLang[ext] || "plaintext";
 
@@ -34,15 +41,25 @@ export default function CodeEditor({ file }) {
       <div className="editor-topbar">
         <span>{file ? file.name : "No file selected"}</span>
         {!saved && <span className="unsaved">●</span>}
-        <button onClick={save} disabled={!file}>Save (Ctrl+S)</button>
+        <div style={{ marginLeft: "auto", display: "flex", gap: "6px" }}>
+          <button onClick={handleFormat} disabled={!file}>Format</button>
+          <button onClick={save} disabled={!file}>Save (Ctrl+S)</button>
+        </div>
       </div>
       <Editor
         height="calc(100% - 36px)"
         language={language}
         value={content}
         theme="vs-dark"
+        onMount={(editor) => { editorRef.current = editor; }}
         onChange={(v) => { setContent(v); setSaved(false); }}
-        options={{ fontSize: 14, minimap: { enabled: false }, wordWrap: "on" }}
+        options={{
+          fontSize: 14,
+          minimap: { enabled: false },
+          wordWrap: "on",
+          formatOnPaste: true,
+          formatOnType: true,
+        }}
       />
     </div>
   );

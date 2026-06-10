@@ -48,6 +48,13 @@ async def write_file(body: WriteBody):
         await f.write(body.content)
     return {"status": "saved"}
 
+@router.post("/create-file")
+async def create_file(body: WriteBody):
+    os.makedirs(os.path.dirname(body.path), exist_ok=True)
+    async with aiofiles.open(body.path, "w") as f:
+        await f.write(body.content)
+    return {"status": "created"}
+
 @router.post("/create-project")
 def create_project(body: CreateProject):
     path = os.path.join(WORKSPACE, body.name)

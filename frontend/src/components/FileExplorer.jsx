@@ -34,6 +34,8 @@ export default function FileExplorer({ onFileSelect }) {
   const [projectName, setProjectName] = useState("");
   const [cloneUrl, setCloneUrl] = useState("");
   const [cloneName, setCloneName] = useState("");
+  const [newFilePath, setNewFilePath] = useState("");
+  const [showNewFile, setShowNewFile] = useState(false);
 
   const fetchTree = () => {
     axios.get(`${API}/api/files/tree`).then((r) => setTree(r.data));
@@ -53,21 +55,51 @@ export default function FileExplorer({ onFileSelect }) {
       .then(() => { fetchTree(); setCloneUrl(""); setCloneName(""); });
   };
 
+  const createFile = () => {
+    if (!newFilePath) return;
+    axios.post(`${API}/api/files/write`, { path: newFilePath, content: "" })
+      .then(() => { fetchTree(); setNewFilePath(""); setShowNewFile(false); });
+  };
+
   return (
     <div className="explorer">
       <div className="explorer-header">EXPLORER</div>
+
+      {/* Create Project */}
       <div className="explorer-actions">
-        <input placeholder="Project name" value={projectName}
+        <input id="project-name" placeholder="Project name" value={projectName}
           onChange={(e) => setProjectName(e.target.value)} />
         <button onClick={createProject}>+ New</button>
       </div>
+
+      {/* Clone Repo */}
       <div className="explorer-actions">
-        <input placeholder="GitHub URL" value={cloneUrl}
+        <input id="clone-url" placeholder="GitHub URL" value={cloneUrl}
           onChange={(e) => setCloneUrl(e.target.value)} />
-        <input placeholder="Folder name" value={cloneName}
+        <input id="clone-name" placeholder="Folder name" value={cloneName}
           onChange={(e) => setCloneName(e.target.value)} />
         <button onClick={cloneRepo}>Clone</button>
       </div>
+
+      {/* New File */}
+      <div className="explorer-actions">
+        <button onClick={() => setShowNewFile(!showNewFile)}>
+          {showNewFile ? "✕ Cancel" : "📄 New File"}
+        </button>
+      </div>
+      {showNewFile && (
+        <div className="explorer-actions">
+          <input
+            id="new-file-path"
+            placeholder="e.g. workspace/myapp/main.py"
+            value={newFilePath}
+            onChange={(e) => setNewFilePath(e.target.value)}
+          />
+          <button onClick={createFile}>Create</button>
+        </div>
+      )}
+
+      {/* File Tree */}
       <div className="tree">
         {tree ? <TreeNode node={tree} onFileSelect={onFileSelect} /> : "Loading..."}
       </div>
