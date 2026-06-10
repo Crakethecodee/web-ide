@@ -24,14 +24,19 @@ Tech Stack
 | DB Viewer | SQLite                                  |
 | Storage   | Local disk (workspace folder)           |
 
-Architecture
+## 🏗️ System Architecture
 
-Browser (React)
-├── File Explorer → REST API → Local Disk
-├── Code Editor → REST API → Read/Write Files
-├── Logs Panel → REST API → Process stdout
-├── Terminal → WebSocket → PowerShell
-└── DB Viewer → REST API → SQLite
+```text
+┌─────────────────────────────────────────────┐
+│              Browser (React)                │
+├─────────────────────────────────────────────┤
+│  File Explorer  ─────► REST API ─► Disk     │
+│  Code Editor    ─────► REST API ─► Files    │
+│  Logs Panel     ─────► REST API ─► stdout   │
+│  Terminal       ─────► WebSocket ─► Shell   │
+│  DB Viewer      ─────► REST API ─► SQLite   │
+└─────────────────────────────────────────────┘
+```
 
 ARCHITECTURE DIAGRAM
 
