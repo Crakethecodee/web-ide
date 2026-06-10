@@ -32,40 +32,8 @@ Browser (React)
 ARCHITECTURE DIAGRAM
 
 
-Browser
-   │
-   ├── HTTP (REST API)
-   └── WebSocket
-         │
-┌─────────────────────────────────────────────────────┐
-│              React Frontend (localhost:5173)          │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  │
-│  │File Explorer│  │Code Editor  │  │  DB Viewer  │  │
-│  │  Tree view  │  │Monaco+Format│  │Tables+Query │  │
-│  └─────────────┘  └─────────────┘  └─────────────┘  │
-│  ┌─────────────┐  ┌─────────────┐                    │
-│  │ Logs Panel  │  │  Terminal   │                    │
-│  │stdout/stderr│  │  Xterm.js   │                    │
-│  └─────────────┘  └─────────────┘                    │
-└─────────────────────────────────────────────────────┘
-         │ REST API + WebSocket
-┌─────────────────────────────────────────────────────┐
-│             FastAPI Backend (localhost:8000)          │
-│  ┌─────────────┐  ┌─────────────┐                    │
-│  │  files.py   │  │ process.py  │                    │
-│  │read/write   │  │run/stop/logs│                    │
-│  └─────────────┘  └─────────────┘                    │
-│  ┌─────────────┐  ┌─────────────┐                    │
-│  │ terminal.py │  │ database.py │                    │
-│  │ WebSocket   │  │SQLite viewer│                    │
-│  └─────────────┘  └─────────────┘                    │
-└─────────────────────────────────────────────────────┘
-         │                        │
-┌────────────────┐    ┌──────────────────────┐
-│    Workspace   │    │   External Services  │
-│  Project files │    │  GitHub + PowerShell │
-│  SQLite DBs    │    │                      │
-└────────────────┘    └──────────────────────┘
+<img width="887" height="676" alt="image" src="https://github.com/user-attachments/assets/7a3d25e4-d816-46f8-a36c-a3a98f766f5a" />
+
 
 Setup & Run
 
